@@ -32,7 +32,7 @@ Se quiser, posso gerar também uma versão em inglês ou expandir com imagens e 
 
 # Mockup
 
-## Aplicativo Halth Check
+## Aplicativo Health Check
 
 
 <img src="https://github.com/GabrielHR0sa/HealthCheck_front-end/blob/main/mockups/telas.png?raw=true">
