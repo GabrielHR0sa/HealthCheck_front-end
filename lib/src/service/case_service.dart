@@ -21,7 +21,7 @@ class CaseService {
         '/search',
         data:
             searchDTO
-                .toJson(), // Importante: GET com body, compatível só se o backend aceitar — se não, converte para query params
+                .toJson(), 
       );
       return response;
     } on DioException catch (e) {

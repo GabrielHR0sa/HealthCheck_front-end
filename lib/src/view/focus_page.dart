@@ -2,29 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:health_check/src/model/gravities.dart';
 import 'package:health_check/src/model/sickness.dart';
-import 'package:health_check/src/widget/dialogs.dart';
-import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 List<Map<String, dynamic>> GraL = gravities;
 List<Map<String, dynamic>> SicL = sickness;
 
 TextEditingController selSic = TextEditingController();
-TextEditingController selDat = TextEditingController();
-TextEditingController selGra = TextEditingController();
-TextEditingController selObs = TextEditingController();
+TextEditingController selRua = TextEditingController();
+TextEditingController selNum = TextEditingController();
+TextEditingController selCom = TextEditingController();
+TextEditingController selBai = TextEditingController();
+TextEditingController selCid = TextEditingController();
+TextEditingController selEst = TextEditingController();
+TextEditingController selCep = TextEditingController();
 
 _clearFields() {
   selSic.clear();
-  selDat.clear();
-  selGra.clear();
-  selObs.clear();
+  selRua.clear();
+  selNum.clear();
+  selCom.clear();
+  selBai.clear();
+  selCid.clear();
+  selEst.clear();
+  selCep.clear();
 }
-
-final MaskTextInputFormatter dateFormatter = MaskTextInputFormatter(
-  mask: '##/##/####',
-  filter: {'#': RegExp(r'[0-9]')},
-);
 
 class FocusPage extends StatefulWidget {
   const FocusPage({super.key});
@@ -38,9 +39,6 @@ class _FocusPageState extends State<FocusPage> {
 
   @override
   void initState() {
-    final now = DateTime.now();
-    final dateFormatter = DateFormat('dd/MM/yyyy');
-    selDat = TextEditingController(text: dateFormatter.format(now));
     super.initState();
   }
 
@@ -80,10 +78,17 @@ class _FocusPageState extends State<FocusPage> {
               onPressed: () {
                 Navigator.of(context).popAndPushNamed('/home');
               },
-              icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.background, size: 40),
+              icon: Icon(
+                Icons.arrow_back,
+                color: Theme.of(context).colorScheme.background,
+                size: 40,
+              ),
             ),
             title: Center(
-              child: Text('NOVO FOCO', style: Theme.of(context).textTheme.titleLarge,),
+              child: Text(
+                'NOVO FOCO',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
             ),
             actions: [Container(width: 50)],
             backgroundColor: Colors.transparent, // importante!
@@ -116,7 +121,7 @@ class _FocusPageState extends State<FocusPage> {
                   ),
                 ),
               ),
-              SizedBox(height: altura * 0.1,),
+              SizedBox(height: altura * 0.1),
               Container(
                 width: largura * 1,
                 height: altura * 0.8,
@@ -130,52 +135,87 @@ class _FocusPageState extends State<FocusPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(height: 60),
+                    SizedBox(height: 20),
                     DropDownSic(notifierSic: _sicNotifier),
-                    SizedBox(height: 40),
+                    SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40),
-                      child: TextFormField(
-                        controller: selDat,
-                        keyboardType: TextInputType.number,
-                        focusNode: _focusDate,
-                        inputFormatters: [dateFormatter],
-                        decoration: InputDecoration(
-                          filled: true,
-                          labelText: 'Data',
-                          hintText: 'dd/mm/yyyy',
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                final now = DateTime.now();
-                                final dateFormatter = DateFormat('dd/MM/yyyy');
-                                selDat = TextEditingController(
-                                  text: dateFormatter.format(now),
-                                );
-                              });
-                            },
-                            icon: const Icon(Icons.calendar_month),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 6,
+                            child: TextFormField(
+                              controller: selRua,
+                              decoration: const InputDecoration(
+                                filled: true,
+                                labelText: 'Rua',
+                              ),
+                            ),
                           ),
-                        ),
-                        onTapOutside: (event) {
-                          _focusDate.unfocus();
-                        },
+                          const SizedBox(width: 16), // espaço entre os campos
+                          Expanded(
+                            flex: 3,
+                            child: TextFormField(
+                              controller: selNum,
+                              decoration: const InputDecoration(
+                                filled: true,
+                                labelText: 'Nº',
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(height: 40),
-                    DropDownGra(notifierGra: _graNotifier),
-                    SizedBox(height: 40),
+                    SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40),
                       child: TextFormField(
-                        controller: selObs,
+                        controller: selCom,
                         decoration: InputDecoration(
                           filled: true,
-                          labelText: 'Observações',
+                          labelText: 'Complemento',
                         ),
                       ),
+                    ),SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 6,
+                            child: TextFormField(
+                              controller: selCid,
+                              decoration: const InputDecoration(
+                                filled: true,
+                                labelText: 'Cidade',
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 16), // espaço entre os campos
+                          Expanded(
+                            flex: 3,
+                            child: TextFormField(
+                              controller: selEst,
+                              decoration: const InputDecoration(
+                                filled: true,
+                                labelText: 'Estado',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 40),
+                     SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: TextFormField(
+                        controller: selCep,
+                        decoration: InputDecoration(
+                          filled: true,
+                          labelText: 'Cep',
+                        ),
+                      ),
+                    ),SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -194,17 +234,6 @@ class _FocusPageState extends State<FocusPage> {
                               ),
                             ),
                             onPressed: () async {
-                              Dialogs.information(
-                                context,
-                                'Dados salvos',
-                                'Cod Doença: ${selSic.text}' +
-                                    '\n' +
-                                    'Data:${selDat.text}' +
-                                    '\n' +
-                                    'Cod Gravidade:${selGra.text}' +
-                                    '\n' +
-                                    'Observação:${selObs.text}',
-                              );
                               _clearFields();
                             },
                             child: const Text(
@@ -249,7 +278,7 @@ class _FocusPageState extends State<FocusPage> {
             onPressed: () {
               Navigator.of(context).popAndPushNamed('/home');
             },
-            icon:  Icon(
+            icon: Icon(
               Icons.home,
               size: 40,
               color: Theme.of(context).colorScheme.background,
@@ -259,58 +288,6 @@ class _FocusPageState extends State<FocusPage> {
       ),
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
-  }
-}
-
-class DropDownGra extends StatefulWidget {
-  final ValueNotifier<String> notifierGra; // Adicione um ValueNotifier
-  const DropDownGra({super.key, required this.notifierGra});
-
-  @override
-  State<DropDownGra> createState() => _DropDownGraState();
-}
-
-class _DropDownGraState extends State<DropDownGra> {
-  @override
-  Widget build(BuildContext context) {
-    final largura = MediaQuery.of(context).size.width;
-
-    // Verifica se AtvL está vazio, caso contrário, exibe a mensagem padrão
-    final List<Map<String, dynamic>> dropdownItems = GraL;
-
-    return ValueListenableBuilder<String>(
-      valueListenable: widget.notifierGra, // Use o ValueNotifier
-      builder: (context, selectedGra, child) {
-        return DropdownMenu<String>(
-          width: largura * 0.82,
-          initialSelection: GraL[0]['desgra'],
-          onSelected: (String? value) {
-            // Atualiza o ValueNotifier e o controller SelNiv com o valor de codniv
-            Map<String, dynamic> selectedItem = dropdownItems.firstWhere(
-              (item) => item['desgra'] == value,
-            );
-            widget.notifierGra.value =
-                value!; // Atualiza o ValueNotifier com o valor exibido (desniv)
-            selGra.text =
-                selectedItem['codgra']
-                    .toString(); // Atualiza o SelNiv com o valor de codniv
-          },
-          dropdownMenuEntries:
-              dropdownItems.map<DropdownMenuEntry<String>>((
-                Map<String, dynamic> item,
-              ) {
-                // Exibe 'desniv' no menu, mas o valor selecionado será 'codniv'
-                String displayValue = item['desgra'] as String;
-                return DropdownMenuEntry<String>(
-                  value: displayValue,
-                  label: displayValue,
-                );
-              }).toList(),
-          menuHeight: 400,
-          inputDecorationTheme: InputDecorationTheme(filled: true),
-        );
-      },
     );
   }
 }
