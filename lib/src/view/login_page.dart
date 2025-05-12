@@ -3,6 +3,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:health_check/src/model/agent_login_dto.dart';
+import 'package:health_check/src/model/agent_register_dto.dart';
+import 'package:health_check/src/service/agent_service.dart';
 
 bool isExpanded = true;
 bool viewPass = false;
@@ -10,6 +13,8 @@ bool viewPass = false;
 TextEditingController user = TextEditingController();
 TextEditingController pass = TextEditingController();
 TextEditingController login = TextEditingController();
+TextEditingController city = TextEditingController();
+TextEditingController email = TextEditingController();
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -43,6 +48,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final altura = MediaQuery.of(context).size.height;
     final largura = MediaQuery.of(context).size.width;
+    final agentService = AgentService();
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,
@@ -131,6 +138,46 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
+                isExpanded
+                    ? Container()
+                    : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: TextFormField(
+                        controller: city,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          prefixIcon: const Icon(
+                            Icons.location_city,
+                            color: Color.fromARGB(255, 56, 113, 193),
+                          ),
+                          hintText: 'Cidade',
+                        ),
+                      ),
+                    ),
+                isExpanded
+                    ? Container()
+                    : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: TextFormField(
+                        controller: email,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          prefixIcon: const Icon(
+                            Icons.email,
+                            color: Color.fromARGB(255, 56, 113, 193),
+                          ),
+                          hintText: 'Email',
+                        ),
+                      ),
+                    ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: TextFormField(
@@ -200,8 +247,38 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             onPressed: () async {
-                              Navigator.of(context).popAndPushNamed('/home');
+                              try {
+                                final loginDTO = AgentLoginDTO(
+                                  email: login.text,
+                                  password: pass.text,
+                                );
+
+                                final response = await agentService.login(
+                                  loginDTO,
+                                );
+
+                                // Exibir sucesso
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Bem-vindo, ${response.name}!',
+                                    ),
+                                    backgroundColor: Colors.green,
+                                  ),
+                                );
+
+                                Navigator.popAndPushNamed(context, '/home');
+                              } catch (e) {
+                                // Exibir erro
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(e.toString()),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
                             },
+
                             child: const Text(
                               'Entrar',
                               style: TextStyle(color: Colors.white),
@@ -222,7 +299,46 @@ class _LoginPageState extends State<LoginPage> {
                                 borderRadius: BorderRadius.circular(15),
                               ),
                             ),
-                            onPressed: () async {},
+                            onPressed: () async {
+                              try {
+                                final registerDTO = AgentRegisterDTO(
+                                  name: user.text,
+                                  login: login.text,
+                                  password: pass.text,
+                                  city: city.text,
+                                  email: email.text,
+                                );
+
+                                final response = await agentService.register(
+                                  registerDTO,
+                                );
+
+                                // Exibir sucesso
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Agente ${response.name} cadastrado com sucesso!',
+                                    ),
+                                    backgroundColor: Colors.green,
+                                  ),
+                                );
+
+                                user.clear();
+                                login.clear();
+                                pass.clear();
+                                city.clear();
+                                email.clear();
+                              } catch (e) {
+                                // Exibir erro
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(e.toString()),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
+                            },
+
                             child: const Text(
                               'Cadastrar',
                               style: TextStyle(color: Colors.white),
@@ -235,11 +351,11 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     isExpanded
-                        ?  Text(
+                        ? Text(
                           'Não possui conta?',
                           style: Theme.of(context).textTheme.titleMedium,
                         )
-                        :  Text(
+                        : Text(
                           'Já possui conta?',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
