@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:health_check/src/model/case_register_dto.dart';
 import 'package:health_check/src/model/gravities.dart';
 import 'package:health_check/src/model/sickness.dart';
+import 'package:health_check/src/service/case_service.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 List<Map<String, dynamic>> GraL = gravities;
@@ -52,9 +54,7 @@ class _FocusPageState extends State<FocusPage> {
   Widget build(BuildContext context) {
     final altura = MediaQuery.of(context).size.height;
     final largura = MediaQuery.of(context).size.width;
-    final ValueNotifier<String> _graNotifier = ValueNotifier<String>(
-      GraL.first.toString(),
-    );
+    final caseService = CaseService();
     final ValueNotifier<String> _sicNotifier = ValueNotifier<String>(
       GraL.first.toString(),
     );
@@ -176,7 +176,8 @@ class _FocusPageState extends State<FocusPage> {
                           labelText: 'Complemento',
                         ),
                       ),
-                    ),SizedBox(height: 20),
+                    ),
+                    SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40),
                       child: Row(
@@ -205,7 +206,7 @@ class _FocusPageState extends State<FocusPage> {
                         ],
                       ),
                     ),
-                     SizedBox(height: 20),
+                    SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40),
                       child: TextFormField(
@@ -215,7 +216,8 @@ class _FocusPageState extends State<FocusPage> {
                           labelText: 'Cep',
                         ),
                       ),
-                    ),SizedBox(height: 20),
+                    ),
+                    SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -234,7 +236,42 @@ class _FocusPageState extends State<FocusPage> {
                               ),
                             ),
                             onPressed: () async {
-                              _clearFields();
+                              try {
+                                final newCase = CaseRegisterDTO(
+                                  disease: selSic.text,
+                                  street: selRua.text,
+                                  number: selNum.text,
+                                  complement: selCom.text,
+                                  neighborhood: selBai.text,
+                                  city: selCid.text,
+                                  state: selEst.text,
+                                  zipCode: selCep.text,
+                                  registrationDate:
+                                      DateTime.now().toIso8601String(),
+                                  longitude: 'pegar default?',
+                                  latitude: 'pegar default?',
+                                  agentId: int.parse('pegar do login?'),
+                                );
+
+                                final response = await caseService.registerCase(
+                                  newCase,
+                                );
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Caso cadastrado com sucesso!',
+                                    ),
+                                  ),
+                                );
+
+                                _clearFields();
+                                //Navigator.of(context).popAndPushNamed('/home');
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(e.toString())),
+                                );
+                              }
                             },
                             child: const Text(
                               'Salvar',
