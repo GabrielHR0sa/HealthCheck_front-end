@@ -100,19 +100,35 @@ class _DenguePageState extends State<DenguePage> {
       floatingActionButton: SizedBox(
         width: 90,
         height: 90,
-        child: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).popAndPushNamed('/home');
-          },
-          backgroundColor: Color.fromARGB(255, 127, 181, 192),
-          shape: const CircleBorder(), // garante que fique redondo
-          child: const Icon(
-            Icons.home,
-            size: 40, // ícone maior
-            color: Color(0xFF1A9AB4),
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: const LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [Color(0xFF63B3C3), Color(0xFF1F5076)],
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 10,
+                offset: Offset(0, 5),
+              ),
+            ],
+          ),
+          child: IconButton(
+            onPressed: () {
+              Navigator.of(context).popAndPushNamed('/home');
+            },
+            icon:  Icon(
+              Icons.home,
+              size: 40,
+              color: Theme.of(context).colorScheme.background,
+            ),
           ),
         ),
       ),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

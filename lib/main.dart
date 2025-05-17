@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_check/src/view/advice_page.dart';
+import 'package:health_check/src/view/alert_page.dart';
+import 'package:health_check/src/view/covid_page.dart';
+import 'package:health_check/src/view/dengue_page.dart';
 import 'package:health_check/src/view/focus_page.dart';
+import 'package:health_check/src/view/gripe_page.dart';
 import 'package:health_check/src/view/home_page.dart';
 import 'package:health_check/src/view/login_page.dart';
 import 'package:health_check/src/view/splash_page.dart';
@@ -49,6 +53,10 @@ class MyApp extends StatelessWidget {
             ('/account') : (context) => const AccountPage(), 
             ('/userInfo') : (context) => const UserInfoPage(),
             ('/advice') : (context) => const AdvicePage(),
+            ('/alert'): (context) => const AlertPage(),
+            ('/covid') : (context) => const CovidPage(),
+            ('/dengue') : (context) => const DenguePage(),
+            ('/gripe') : (context) => const GripePage(),
           },
         ),
       );

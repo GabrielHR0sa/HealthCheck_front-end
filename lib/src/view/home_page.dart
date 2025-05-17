@@ -269,7 +269,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onPressed: () {
-                    //Navigator.of(context).pushNamed('/ComBus');
+                    Navigator.of(context).pushNamed('/alert');
                   },
                   child:  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

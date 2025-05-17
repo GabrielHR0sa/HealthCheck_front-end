@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class AlertPage extends StatefulWidget {
   const AlertPage({super.key});
@@ -64,31 +65,26 @@ class _AlertPageState extends State<AlertPage> {
                     ),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(30),
                       ),
                     ),
                   ),
                   onPressed: () {
                     Navigator.of(context).pushNamed('/dengue');
                   },
-                  child: const Row(
+                  child:  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Icon(Icons.health_and_safety, size: 70),
                       Text(
                         'DENGUE',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic,
-                        ),
+                        style:Theme.of(context).textTheme.displayMedium,
                       ),
                     ],
                   ),
                 ),
               ),
-            ),
+            ).animate().fadeIn(curve: Curves.easeInOut, duration: 1500.ms),
             Center(
               child: Container(
                 height: altura * 0.15,
@@ -101,31 +97,26 @@ class _AlertPageState extends State<AlertPage> {
                     ),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(30),
                       ),
                     ),
                   ),
                   onPressed: () {
                     Navigator.of(context).pushNamed('/gripe');
                   },
-                  child: const Row(
+                  child:  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Icon(Icons.health_and_safety, size: 70),
                       Text(
                         'GRIPE',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic,
-                        ),
+                        style:Theme.of(context).textTheme.displayMedium,
                       ),
                     ],
                   ),
                 ),
               ),
-            ),
+            ).animate().fadeIn(curve: Curves.easeInOut, duration: 1500.ms),
             Center(
               child: Container(
                 height: altura * 0.15,
@@ -138,50 +129,61 @@ class _AlertPageState extends State<AlertPage> {
                     ),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(30),
                       ),
                     ),
                   ),
                   onPressed: () {
                     Navigator.of(context).pushNamed('/covid');
                   },
-                  child: const Row(
+                  child:  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Icon(Icons.health_and_safety, size: 70),
                       Text(
                         'COVID-19',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic,
-                        ),
+                        style:Theme.of(context).textTheme.displayMedium,
                       ),
                     ],
                   ),
                 ),
               ),
-            ),
+            ).animate().fadeIn(curve: Curves.easeInOut, duration: 1500.ms),
           ],
         ),
       ),
       floatingActionButton: SizedBox(
         width: 90,
         height: 90,
-        child: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).popAndPushNamed('/home');
-          },
-          backgroundColor: Color.fromARGB(255, 127, 181, 192),
-          shape: const CircleBorder(), // garante que fique redondo
-          child: const Icon(
-            Icons.home,
-            size: 40, // ícone maior
-            color: Color(0xFF1A9AB4),
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: const LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [Color(0xFF63B3C3), Color(0xFF1F5076)],
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 10,
+                offset: Offset(0, 5),
+              ),
+            ],
+          ),
+          child: IconButton(
+            onPressed: () {
+              Navigator.of(context).popAndPushNamed('/home');
+            },
+            icon:  Icon(
+              Icons.home,
+              size: 40,
+              color: Theme.of(context).colorScheme.background,
+            ),
           ),
         ),
       ),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
