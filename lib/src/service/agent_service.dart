@@ -10,7 +10,7 @@ class AgentService {
 
   Future<AgentResponseDTO> register(AgentRegisterDTO dto) async {
     try {
-      final response = await _dio.post('/register', data: dto.toJson());
+      final response = await _dio.post('agents/register', data: dto.toJson());
       return AgentResponseDTO.fromJson(response.data);
     } on DioException catch (e) {
       throw Exception(e.response?.data['message'] ?? 'Erro no registro');
@@ -19,7 +19,7 @@ class AgentService {
 
   Future<AgentResponseDTO> login(AgentLoginDTO dto) async {
     try {
-      final response = await _dio.post('/login', data: dto.toJson());
+      final response = await _dio.post('agents/login', data: dto.toJson());
       return AgentResponseDTO.fromJson(response.data);
     } on DioException catch (e) {
       throw Exception(e.response?.data['message'] ?? 'Erro no login');

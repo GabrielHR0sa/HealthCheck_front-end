@@ -170,6 +170,17 @@ class _FocusPageState extends State<FocusPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40),
                       child: TextFormField(
+                        controller: selBai,
+                        decoration: InputDecoration(
+                          filled: true,
+                          labelText: 'Bairro',
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: TextFormField(
                         controller: selCom,
                         decoration: InputDecoration(
                           filled: true,
@@ -248,9 +259,7 @@ class _FocusPageState extends State<FocusPage> {
                                   zipCode: selCep.text,
                                   registrationDate:
                                       DateTime.now().toIso8601String(),
-                                  longitude: 'pegar default?',
-                                  latitude: 'pegar default?',
-                                  agentId: int.parse('pegar do login?'),
+                                  agentId: 1,
                                 );
 
                                 final response = await caseService.registerCase(

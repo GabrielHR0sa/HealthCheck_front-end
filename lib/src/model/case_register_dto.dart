@@ -8,8 +8,6 @@ class CaseRegisterDTO {
   final String state;
   final String zipCode;
   final String registrationDate;
-  final String longitude;
-  final String latitude;
   final int agentId;
 
   CaseRegisterDTO({
@@ -22,8 +20,6 @@ class CaseRegisterDTO {
     required this.state,
     required this.zipCode,
     required this.registrationDate,
-    required this.longitude,
-    required this.latitude,
     required this.agentId,
   });
 
@@ -37,8 +33,6 @@ class CaseRegisterDTO {
         'state': state,
         'zipCode': zipCode,
         'registrationDate': registrationDate,
-        'longitude': longitude,
-        'latitude': latitude,
         'agentId': agentId,
       };
 }
