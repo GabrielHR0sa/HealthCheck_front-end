@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:health_check/src/widget/dialogs.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -120,7 +119,7 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                   ),
                   onPressed: () {
-                    Dialogs.information(context, 'Mapa', 'Abrir navegador? ou somente exibir o mapa da API');
+                    Navigator.of(context).pushNamed('/map');
                   },
                   child:  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

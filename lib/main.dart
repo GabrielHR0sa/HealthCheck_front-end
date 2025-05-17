@@ -8,6 +8,8 @@ import 'package:health_check/src/view/focus_page.dart';
 import 'package:health_check/src/view/gripe_page.dart';
 import 'package:health_check/src/view/home_page.dart';
 import 'package:health_check/src/view/login_page.dart';
+import 'package:health_check/src/view/map_page.dart';
+import 'package:health_check/src/view/search_page.dart';
 import 'package:health_check/src/view/splash_page.dart';
 import 'package:health_check/src/view/account_page.dart';
 import 'package:health_check/src/view/userInfo_page.dart';
@@ -57,6 +59,8 @@ class MyApp extends StatelessWidget {
             ('/covid') : (context) => const CovidPage(),
             ('/dengue') : (context) => const DenguePage(),
             ('/gripe') : (context) => const GripePage(),
+            ('/search') : (context) => const SearchPage(),
+            ('/map') : (context) => const MapPage(),
           },
         ),
       );

@@ -4,7 +4,6 @@ import 'package:health_check/src/model/case_register_dto.dart';
 import 'package:health_check/src/model/gravities.dart';
 import 'package:health_check/src/model/sickness.dart';
 import 'package:health_check/src/service/case_service.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 List<Map<String, dynamic>> GraL = gravities;
 List<Map<String, dynamic>> SicL = sickness;
@@ -37,7 +36,6 @@ class FocusPage extends StatefulWidget {
 }
 
 class _FocusPageState extends State<FocusPage> {
-  final FocusNode _focusDate = FocusNode();
 
   @override
   void initState() {
