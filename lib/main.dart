@@ -9,6 +9,7 @@ import 'package:health_check/src/view/gripe_page.dart';
 import 'package:health_check/src/view/home_page.dart';
 import 'package:health_check/src/view/login_page.dart';
 import 'package:health_check/src/view/map_page.dart';
+import 'package:health_check/src/view/recomendation_page.dart';
 import 'package:health_check/src/view/search_page.dart';
 import 'package:health_check/src/view/splash_page.dart';
 import 'package:health_check/src/view/account_page.dart';
@@ -69,148 +70,151 @@ class MyApp extends StatelessWidget {
   }
 
  ThemeData _buildCurrentTheme() {
-    switch (themeController.currentTheme) {
-      case "dark":
-        return ThemeData(
-          useMaterial3: true,
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Color(0xFF1A9AB4),
+  switch (themeController.currentTheme) {
+    case "dark":
+      return ThemeData(
+        useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF1A9AB4),
+        ),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 46, 46, 46),
+        textTheme: TextTheme(
+          bodySmall: GoogleFonts.inter(
+            color: const Color.fromARGB(255, 46, 46, 46),
           ),
-          scaffoldBackgroundColor: const Color.fromARGB(255, 46, 46, 46),
-          textTheme: TextTheme(
-            bodySmall: const TextStyle(
-              color: Color.fromARGB(255, 46, 46, 46),
-            ),
-            bodyMedium: GoogleFonts.ubuntu(
-              color: Colors.white,
-              fontSize: 22,
-              fontStyle: FontStyle.italic,
-            ),
-            bodyLarge: GoogleFonts.ubuntu(
-              color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.5),
-              fontSize: 20,
-              fontStyle: FontStyle.italic,
-            ),
-            headlineSmall: const TextStyle(
-              fontSize: 12,
-              color: Colors.white,
-            ),
-            headlineMedium: TextStyle(
-              fontSize: 18,
-              color: const Color.fromARGB(255, 0, 0, 0),
-            ),
-            headlineLarge: const TextStyle(
-              fontSize: 14,
-              color: Colors.redAccent,
-              decoration: TextDecoration.underline,
-            ),
-            titleSmall: const TextStyle(
-              color: const Color.fromARGB(255, 46, 46, 46),
-              fontSize: 35,
-              fontWeight: FontWeight.bold,
-            ),
-            titleMedium: GoogleFonts.ubuntu(
-              color: const Color.fromARGB(255, 46, 46, 46),
-              fontStyle: FontStyle.italic,
-              fontSize: 20
-            ),
-            titleLarge: GoogleFonts.ubuntu(
-              color: const Color.fromARGB(255, 46, 46, 46),
-              fontStyle: FontStyle.italic,
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ),
-             displayMedium: GoogleFonts.ubuntu(
-              color: const Color.fromARGB(255, 46, 46, 46),
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-              fontStyle: FontStyle.italic,
-            ),
+          bodyMedium: GoogleFonts.inter(
+            color: Colors.white,
+            fontSize: 22,
+            fontStyle: FontStyle.italic,
           ),
-          colorScheme: const ColorScheme.dark(
-              brightness: Brightness.light,
-              primary: Color.fromARGB(255, 56, 113, 193),
-              onPrimary: Color.fromARGB(255, 56, 113, 193),
-              secondary: Colors.white,
-              onSecondary: Color.fromARGB(255, 56, 113, 193),
-              error: Colors.black,
-              onError: Colors.black,
-              background:   Color.fromARGB(255, 46, 46, 46),
-              onBackground:  Color.fromARGB(255, 46, 46, 46),
-              surface: Color.fromARGB(255, 255, 255, 255),
-              onSurface: Colors.black),
-        );
-      case "light":
-      default:
-        return ThemeData(
-          useMaterial3: true,
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Color.fromARGB(255, 56, 113, 193),
+          bodyLarge: GoogleFonts.inter(
+            color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.5),
+            fontSize: 20,
+            fontStyle: FontStyle.italic,
           ),
-          scaffoldBackgroundColor: const Color.fromARGB(255, 212, 212, 212),
-          textTheme: TextTheme(
-            bodySmall: const TextStyle(
-              color: Color.fromARGB(255, 212, 212, 212),
-            ),
-            bodyMedium: GoogleFonts.ubuntu(
-              color: const Color.fromARGB(255, 255, 255, 255),
-              fontSize: 22,
-              fontStyle: FontStyle.italic,
-            ),
-            bodyLarge: GoogleFonts.ubuntu(
-              color: Colors.black.withOpacity(0.5),
-              fontSize: 20,
-              fontStyle: FontStyle.italic,
-            ),
-            headlineSmall: const TextStyle(
-              fontSize: 12,
-              color: Colors.black,
-            ),
-            headlineMedium: TextStyle(
-              fontSize: 18,
-              color: Color.fromARGB(255, 32, 32, 32),
-            ),
-            headlineLarge: const TextStyle(
-              fontSize: 14,
-              color: Colors.redAccent,
-              decoration: TextDecoration.underline,
-            ),
-            titleSmall: const TextStyle(
-              color: Color.fromARGB(255, 255, 255, 255),
-              fontSize: 35,
-              fontWeight: FontWeight.bold,
-            ),
-            titleMedium: GoogleFonts.ubuntu(
-              color: const Color.fromARGB(255, 255, 255, 255),
-              fontStyle: FontStyle.italic,
-              fontSize: 20
-            ),
-            titleLarge: GoogleFonts.ubuntu(
-              color: Color.fromARGB(255, 212, 212, 212),
-              fontStyle: FontStyle.italic,
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ),
-            displayMedium: GoogleFonts.ubuntu(
-              color: const Color.fromARGB(255, 255, 255, 255),
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-              fontStyle: FontStyle.italic,
-            ),
+          headlineSmall: GoogleFonts.inter(
+            fontSize: 12,
+            color: Colors.white,
           ),
-          colorScheme: const ColorScheme.light(
-              brightness: Brightness.light,
-              primary: Color.fromARGB(255, 56, 113, 193),
-              onPrimary: Color.fromARGB(255, 56, 113, 193),
-              secondary: Colors.white,
-              onSecondary: Color.fromARGB(255, 56, 113, 193),
-              error: Colors.black,
-              onError: Colors.black,
-              background: Color.fromARGB(255, 212, 212, 212),
-              onBackground: Color.fromARGB(255, 255, 255, 255),
-              surface: Colors.white,
-              onSurface: Colors.black),
-        );
-    }
+          headlineMedium: GoogleFonts.inter(
+            fontSize: 18,
+            color: const Color.fromARGB(255, 0, 0, 0),
+          ),
+          headlineLarge: GoogleFonts.inter(
+            fontSize: 14,
+            color: Colors.redAccent,
+            decoration: TextDecoration.underline,
+          ),
+          titleSmall: GoogleFonts.inter(
+            color: const Color.fromARGB(255, 46, 46, 46),
+            fontSize: 35,
+            fontWeight: FontWeight.bold,
+          ),
+          titleMedium: GoogleFonts.inter(
+            color: const Color.fromARGB(255, 46, 46, 46),
+            fontStyle: FontStyle.italic,
+            fontSize: 20,
+          ),
+          titleLarge: GoogleFonts.inter(
+            color: const Color.fromARGB(255, 46, 46, 46),
+            fontStyle: FontStyle.italic,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+          displayMedium: GoogleFonts.inter(
+            color: const Color.fromARGB(255, 46, 46, 46),
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+        colorScheme: const ColorScheme.dark(
+          brightness: Brightness.light,
+          primary: Color.fromARGB(255, 56, 113, 193),
+          onPrimary: Color.fromARGB(255, 56, 113, 193),
+          secondary: Colors.white,
+          onSecondary: Color.fromARGB(255, 56, 113, 193),
+          error: Colors.black,
+          onError: Colors.black,
+          background: Color.fromARGB(255, 46, 46, 46),
+          onBackground: Color.fromARGB(255, 46, 46, 46),
+          surface: Color.fromARGB(255, 255, 255, 255),
+          onSurface: Colors.black,
+        ),
+      );
+    case "light":
+    default:
+      return ThemeData(
+        useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color.fromARGB(255, 56, 113, 193),
+        ),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 212, 212, 212),
+        textTheme: TextTheme(
+          bodySmall: GoogleFonts.inter(
+            color: const Color.fromARGB(255, 212, 212, 212),
+          ),
+          bodyMedium: GoogleFonts.inter(
+            color: const Color.fromARGB(255, 255, 255, 255),
+            fontSize: 22,
+            fontStyle: FontStyle.italic,
+          ),
+          bodyLarge: GoogleFonts.inter(
+            color: Colors.black.withOpacity(0.5),
+            fontSize: 20,
+            fontStyle: FontStyle.italic,
+          ),
+          headlineSmall: GoogleFonts.inter(
+            fontSize: 12,
+            color: Colors.black,
+          ),
+          headlineMedium: GoogleFonts.inter(
+            fontSize: 18,
+            color: const Color.fromARGB(255, 32, 32, 32),
+          ),
+          headlineLarge: GoogleFonts.inter(
+            fontSize: 14,
+            color: Colors.redAccent,
+            decoration: TextDecoration.underline,
+          ),
+          titleSmall: GoogleFonts.inter(
+            color: const Color.fromARGB(255, 255, 255, 255),
+            fontSize: 35,
+            fontWeight: FontWeight.bold,
+          ),
+          titleMedium: GoogleFonts.inter(
+            color: const Color.fromARGB(255, 255, 255, 255),
+            fontStyle: FontStyle.italic,
+            fontSize: 20,
+          ),
+          titleLarge: GoogleFonts.inter(
+            color: const Color.fromARGB(255, 212, 212, 212),
+            fontStyle: FontStyle.italic,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+          displayMedium: GoogleFonts.inter(
+            color: const Color.fromARGB(255, 255, 255, 255),
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+        colorScheme: const ColorScheme.light(
+          brightness: Brightness.light,
+          primary: Color.fromARGB(255, 56, 113, 193),
+          onPrimary: Color.fromARGB(255, 56, 113, 193),
+          secondary: Colors.white,
+          onSecondary: Color.fromARGB(255, 56, 113, 193),
+          error: Colors.black,
+          onError: Colors.black,
+          background: Color.fromARGB(255, 212, 212, 212),
+          onBackground: Color.fromARGB(255, 255, 255, 255),
+          surface: Colors.white,
+          onSurface: Colors.black,
+        ),
+      );
   }
+}
+
 }

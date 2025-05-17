@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:health_check/src/model/sicknessList.dart';
+import 'package:health_check/src/view/recomendation_page.dart';
 
 List<Map<String, dynamic>> SickL = sicknessL;
 
@@ -57,7 +58,11 @@ class _AdvicePageState extends State<AdvicePage> {
               onPressed: () {
                 Navigator.of(context).popAndPushNamed('/home');
               },
-              icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.background,  size: 40),
+              icon: Icon(
+                Icons.arrow_back,
+                color: Theme.of(context).colorScheme.background,
+                size: 40,
+              ),
             ),
             title: Center(
               child: Text(
@@ -103,7 +108,10 @@ class _AdvicePageState extends State<AdvicePage> {
                         filled: true,
                         hintStyle: Theme.of(context).textTheme.headlineMedium,
                         hintText: 'Pesquisar doença...',
-                        prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.error,),
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: Theme.of(context).colorScheme.error,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40),
                         ),
@@ -131,16 +139,22 @@ class _AdvicePageState extends State<AdvicePage> {
                       color: Color(0xFF1A9AB4),
                       elevation: 4,
                       child: ListTile(
-                        leading:  Icon(
+                        leading: Icon(
                           Icons.sick,
                           color: Color.fromARGB(255, 56, 113, 193),
                           size: 30,
                         ),
-                        title: Text(item['dessic'], style: Theme.of(context).textTheme.titleMedium,),
+                        title: Text(
+                          item['dessic'],
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
                         onTap: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Selecionado: ${item['dessic']}'),
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => RecommendationsPage(
+                                    codsic: item['codsic'],
+                                  ),
                             ),
                           );
                         },
@@ -180,7 +194,7 @@ class _AdvicePageState extends State<AdvicePage> {
             onPressed: () {
               Navigator.of(context).popAndPushNamed('/home');
             },
-            icon:  Icon(
+            icon: Icon(
               Icons.home,
               size: 40,
               color: Theme.of(context).colorScheme.background,
