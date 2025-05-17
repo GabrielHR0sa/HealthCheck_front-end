@@ -63,7 +63,11 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.of(context).popAndPushNamed('/login');
               },
-              icon: Icon(Icons.output_rounded, color: Theme.of(context).colorScheme.background, size: 40),
+              icon: Icon(
+                Icons.output_rounded,
+                color: Theme.of(context).colorScheme.background,
+                size: 40,
+              ),
             ),
             backgroundColor: Colors.transparent, // importante!
             elevation: 0,
@@ -87,12 +91,12 @@ class _HomePageState extends State<HomePage> {
                   },
                   child:
                       _selected
-                          ?  Icon(
+                          ? Icon(
                             CupertinoIcons.lightbulb_slash_fill,
                             color: Theme.of(context).colorScheme.background,
                             size: 35,
                           )
-                          :  Icon(
+                          : Icon(
                             CupertinoIcons.lightbulb_fill,
                             color: Theme.of(context).colorScheme.background,
                             size: 35,
@@ -103,189 +107,231 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              width: largura * 1,
-              height: altura * 0.2,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.center,
-                  end: Alignment.centerRight,
-                  colors: [
-                    Color(0xFF63B3C3), // #63b3c3
-                    Color(0xFF1F5076), // #1f5076
-                  ],
-                ),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40),
-                  bottomRight: Radius.circular(40),
-                ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            width: largura * 1,
+            height: altura * 0.2,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.center,
+                end: Alignment.centerRight,
+                colors: [
+                  Color(0xFF63B3C3), // #63b3c3
+                  Color(0xFF1F5076), // #1f5076
+                ],
               ),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(40),
+                bottomRight: Radius.circular(40),
+              ),
+            ),
 
-              child: Center(
-                child: Container(
-                  width: largura * 0.9,
-                  height: altura * 0.17,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        Color(0xFF1A9AB4),
-                        Color.fromARGB(255, 171, 184, 194),
-                      ],
-                    ),
-                    borderRadius: const BorderRadius.all(Radius.circular(40)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 10,
-                        offset: Offset(0, 4),
-                      ),
+            child: Center(
+              child: Container(
+                width: largura * 0.9,
+                height: altura * 0.17,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Color(0xFF1A9AB4),
+                      Color.fromARGB(255, 171, 184, 194),
                     ],
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).popAndPushNamed('/account');
-                        },
-                        child: CircleAvatar(
-                          radius: 50,
-                          backgroundColor: Theme.of(context).colorScheme.onBackground,
-                          child: Icon(
-                            Icons.person,
-                            color: Color(0xFF1A9AB4),
-                            size: 85,
-                          ),
+                  borderRadius: const BorderRadius.all(Radius.circular(40)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).popAndPushNamed('/account');
+                      },
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onBackground,
+                        child: Icon(
+                          Icons.person,
+                          color: Color(0xFF1A9AB4),
+                          size: 85,
                         ),
                       ),
-                      RichText(
-                        textAlign: TextAlign.end,
-                        text: TextSpan(
+                    ),
+                    RichText(
+                      textAlign: TextAlign.end,
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Bem Vindo!',
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                          TextSpan(text: '\n'),
+                          TextSpan(
+                            text: 'AGENTE: FULANO',
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  Center(
+                    child: Container(
+                      height: altura * 0.12,
+                      width: 500,
+                      margin: const EdgeInsets.all(20),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                            Color(0xFF63B3C3),
+                          ),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                              ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/focus');
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            TextSpan(
-                              text: 'Bem Vindo!',
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                            TextSpan(text: '\n'),
-                            TextSpan(
-                              text: 'AGENTE: FULANO',
+                            Icon(Icons.location_on, size: 70),
+                            Text(
+                              'FOCOS',
                               style: Theme.of(context).textTheme.displayMedium,
                             ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
+                    ),
+                  ).animate().fadeIn(curve: Curves.easeInOut, duration: 1500.ms),
+                  Center(
+                    child: Container(
+                      height: altura * 0.12,
+                      width: 500,
+                      margin: const EdgeInsets.all(20),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                            Color(0xFF63B3C3),
+                          ),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                              ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/search');
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Icon(Icons.manage_search_sharp, size: 70),
+                            Text(
+                              'CONSULTAR',
+                              style: Theme.of(context).textTheme.displayMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ).animate().fadeIn(curve: Curves.easeInOut, duration: 1500.ms),
+                  Center(
+                    child: Container(
+                      height: altura * 0.12,
+                      width: 500,
+                      margin: const EdgeInsets.all(20),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                            Color(0xFF63B3C3),
+                          ),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                              ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).popAndPushNamed('/advice');
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Icon(Icons.edit_note_sharp, size: 70),
+                            Text(
+                              'RECOMENDAÇÕES',
+                              style: Theme.of(context).textTheme.displayMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ).animate().fadeIn(curve: Curves.easeInOut, duration: 1500.ms),
+            
+                  Center(
+                    child: Container(
+                      height: altura * 0.12,
+                      width: 500,
+                      margin: const EdgeInsets.all(20),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                            Color(0xFF63B3C3),
+                          ),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                              ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/alert');
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Icon(Icons.warning_amber_rounded, size: 70),
+                            Text(
+                              'ALERTAS',
+                              style: Theme.of(context).textTheme.displayMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ).animate().fadeIn(curve: Curves.easeInOut, duration: 1500.ms),
+                ],
               ),
             ),
-            Center(
-              child: Container(
-                height: altura * 0.15,
-                width: 500,
-                margin: const EdgeInsets.all(20),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      Color(0xFF63B3C3),
-                    ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed('/focus');
-                  },
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Icon(Icons.location_on, size: 70),
-                      Text(
-                        'FOCOS',
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ).animate().fadeIn(curve: Curves.easeInOut, duration: 1500.ms),
-
-            Center(
-              child: Container(
-                height: altura * 0.15,
-                width: 500,
-                margin: const EdgeInsets.all(20),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      Color(0xFF63B3C3),
-                    ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).popAndPushNamed('/advice');
-                  },
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(Icons.edit_note_sharp, size: 70),
-                      Text(
-                        'RECOMENDAÇÕES',
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ).animate().fadeIn(curve: Curves.easeInOut, duration: 1500.ms),
-
-            Center(
-              child: Container(
-                height: altura * 0.15,
-                width: 500,
-                margin: const EdgeInsets.all(20),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      Color(0xFF63B3C3),
-                    ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed('/alert');
-                  },
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Icon(Icons.warning_amber_rounded, size: 70),
-                      Text(
-                        'ALERTAS',
-                        style:Theme.of(context).textTheme.displayMedium,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ).animate().fadeIn(curve: Curves.easeInOut, duration: 1500.ms),
-          ],
-        ),
+          ),
+        ],
       ),
       floatingActionButton: SizedBox(
         width: 90,
@@ -310,7 +356,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Navigator.of(context).popAndPushNamed('/home');
             },
-            icon:  Icon(
+            icon: Icon(
               Icons.home,
               size: 40,
               color: Theme.of(context).colorScheme.background,
