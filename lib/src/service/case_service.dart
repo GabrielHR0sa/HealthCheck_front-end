@@ -16,16 +16,16 @@ class CaseService {
   }
 
   Future<Response> searchCases(CaseSearchRequestDTO searchDTO) async {
-    try {
-      final response = await _dio.get(
-        'cases/search',
-        data:
-            searchDTO
-                .toJson(), 
-      );
-      return response;
-    } on DioException catch (e) {
-      throw Exception(e.response?.data['message'] ?? 'Erro ao buscar casos');
-    }
+  try {
+    final response = await _dio.request(
+      '/cases/search',
+      data: searchDTO.toJson(),
+      options: Options(method: 'GET'),
+    );
+    return response;
+  } on DioException catch (e) {
+    throw Exception(e.response?.data['message'] ?? 'Erro ao buscar casos');
   }
+}
+
 }

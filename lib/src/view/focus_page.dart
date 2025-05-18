@@ -366,7 +366,7 @@ class _DropDownSicState extends State<DropDownSic> {
             widget.notifierSic.value =
                 value!; // Atualiza o ValueNotifier com o valor exibido (desniv)
             selSic.text =
-                selectedItem['codsic']
+                selectedItem['dessic']
                     .toString(); // Atualiza o SelNiv com o valor de codniv
           },
           dropdownMenuEntries:

@@ -9,7 +9,6 @@ import 'package:health_check/src/view/gripe_page.dart';
 import 'package:health_check/src/view/home_page.dart';
 import 'package:health_check/src/view/login_page.dart';
 import 'package:health_check/src/view/map_page.dart';
-import 'package:health_check/src/view/recomendation_page.dart';
 import 'package:health_check/src/view/search_page.dart';
 import 'package:health_check/src/view/splash_page.dart';
 import 'package:health_check/src/view/account_page.dart';

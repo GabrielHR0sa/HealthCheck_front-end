@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 // Importa a lista sicknessL de onde ela estiver
 import 'package:health_check/src/model/sicknessList.dart';

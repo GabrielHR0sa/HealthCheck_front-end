@@ -1,6 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:health_check/src/dio_client.dart';
+import 'package:health_check/src/model/case_search_request_dto.dart';
+import 'package:health_check/src/service/case_service.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -17,34 +17,29 @@ class _SearchPageState extends State<SearchPage> {
   List<dynamic> searchResults = [];
 
   Future<void> searchCases() async {
-  try {
-    final Map<String, dynamic> queryParams = {
-      'city': cityController.text,
-    };
+    try {
+      final searchDTO = CaseSearchRequestDTO(
+        city: cityController.text,
+        neighborhood:
+            neighborhoodController.text.isNotEmpty
+                ? neighborhoodController.text
+                : null,
+        disease:
+            diseaseController.text.isNotEmpty ? diseaseController.text : null,
+      );
 
-    if (neighborhoodController.text.isNotEmpty) {
-      queryParams['neighborhood'] = neighborhoodController.text;
+      final response = await CaseService().searchCases(searchDTO);
+
+      setState(() {
+        searchResults = response.data['cases'] ?? [];
+      });
+    } catch (e) {
+      print('Erro ao buscar casos: $e');
+      setState(() {
+        searchResults = [];
+      });
     }
-    if (diseaseController.text.isNotEmpty) {
-      queryParams['disease'] = diseaseController.text;
-    }
-
-    final response = await DioClient.dio.get(
-      '/cases/search',
-      queryParameters: queryParams,
-    );
-
-    setState(() {
-      searchResults = response.data['cases'] ?? []; // caso não venha 'cases'
-    });
-  } catch (e) {
-    print('Erro ao buscar casos: $e');
-    setState(() {
-      searchResults = [];
-    });
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +54,7 @@ class _SearchPageState extends State<SearchPage> {
             gradient: LinearGradient(
               begin: Alignment.center,
               end: Alignment.centerRight,
-              colors: [
-                Color(0xFF63B3C3),
-                Color(0xFF1F5076),
-              ],
+              colors: [Color(0xFF63B3C3), Color(0xFF1F5076)],
             ),
           ),
           child: AppBar(
@@ -91,104 +83,170 @@ class _SearchPageState extends State<SearchPage> {
       body: Align(
         alignment: Alignment.topCenter,
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(16),
-                margin: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 10,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: cityController,
-                      decoration: const InputDecoration(
-                        labelText: 'Cidade *',
-                        border: OutlineInputBorder(),
+          child: SafeArea(
+            child: Column(
+              children: [
+                Center(
+                  child: Container(
+                    width: largura * 1,
+                    height: altura * 0.4,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(40),
+                        bottomRight: Radius.circular(40),
+                      ),
+                      gradient: LinearGradient(
+                        begin: Alignment.center,
+                        end: Alignment.centerRight,
+                        colors: [
+                          Color(0xFF63B3C3), // #63b3c3
+                          Color(0xFF1F5076), // #1f5076
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    TextFormField(
-                      controller: neighborhoodController,
-                      decoration: const InputDecoration(
-                        labelText: 'Bairro',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    TextFormField(
-                      controller: diseaseController,
-                      decoration: const InputDecoration(
-                        labelText: 'Doença',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: searchCases,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF1F5076),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 40,
+                              vertical: 5,
+                            ),
+                            child: TextFormField(
+                              controller: cityController,
+                              decoration: InputDecoration(
+                                filled: true,
+                                labelText: 'Cidade',
+                              ),
+                            ),
                           ),
-                        ),
-                        child: const Text(
-                          'Buscar',
-                          style: TextStyle(color: Colors.white),
-                        ),
+                          const SizedBox(height: 10),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 40,
+                              vertical: 5,
+                            ),
+                            child: TextFormField(
+                              controller: neighborhoodController,
+                              decoration: InputDecoration(
+                                filled: true,
+                                labelText: 'Bairro',
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 40,
+                              vertical: 5,
+                            ),
+                            child: TextFormField(
+                              controller: diseaseController,
+                              decoration: InputDecoration(
+                                filled: true,
+                                labelText: 'Doença',
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 70,
+                              vertical: 5,
+                            ),
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                onPressed: searchCases,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF1F5076),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'Buscar',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                height: altura * 0.5,
-                child: searchResults.isEmpty
-                    ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(Icons.search_off,
-                                size: 80, color: Colors.grey),
-                            SizedBox(height: 10),
-                            Text(
-                              'Nenhum caso encontrado',
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.grey),
+                const SizedBox(height: 20),
+                SizedBox(
+                  height: altura * 0.5,
+                  child:
+                      searchResults.isEmpty
+                          ? Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Icon(
+                                  Icons.search_off,
+                                  size: 80,
+                                  color: Colors.grey,
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  'Nenhum caso encontrado',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      )
-                    : ListView.builder(
-                        itemCount: searchResults.length,
-                        itemBuilder: (context, index) {
-                          final item = searchResults[index];
-                          return Card(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 8),
-                            child: ListTile(
-                              title: Text(item['disease']),
-                              subtitle: Text(
-                                  '${item['city']}, ${item['neighborhood']}'),
-                              trailing: const Icon(Icons.chevron_right),
-                            ),
-                          );
-                        },
-                      ),
-              ),
-            ],
+                          )
+                          : ListView.builder(
+                            itemCount: searchResults.length,
+                            itemBuilder: (context, index) {
+                              final item = searchResults[index];
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 5,
+                                ),
+                                child: Card(
+                                  color: Color(0xFF1A9AB4),
+                                  elevation: 4,
+
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                    vertical: 8,
+                                  ),
+                                  child: ListTile(
+                                    leading: Icon(
+                                      Icons.sick,
+                                      color: Color.fromARGB(255, 56, 113, 193),
+                                      size: 30,
+                                    ),
+                                    title: Text(
+                                      item['disease'],
+                                      style:
+                                          Theme.of(
+                                            context,
+                                          ).textTheme.titleMedium,
+                                    ),
+                                    subtitle: Text(
+                                      '${item['city']}, ${item['neighborhood']}',
+                                      style:
+                                          Theme.of(
+                                            context,
+                                          ).textTheme.titleMedium,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
