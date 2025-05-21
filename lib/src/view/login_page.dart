@@ -6,6 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:health_check/src/model/agent_login_dto.dart';
 import 'package:health_check/src/model/agent_register_dto.dart';
 import 'package:health_check/src/service/agent_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 bool isExpanded = true;
 bool viewPass = false;
@@ -249,12 +250,26 @@ class _LoginPageState extends State<LoginPage> {
                             onPressed: () async {
                               try {
                                 final loginDTO = AgentLoginDTO(
-                                  email: login.text,
-                                  password: pass.text,
+                                  email: login.text.toUpperCase().trim(),
+                                  password: pass.text.toUpperCase().trim(),
                                 );
 
+                                SharedPreferences _sharedPreferences =
+                                    await SharedPreferences.getInstance();
+
+                                // Faz login via API
                                 final response = await agentService.login(
                                   loginDTO,
+                                );
+
+                                // Salva name e id do agente no SharedPreferences
+                                await _sharedPreferences.setString(
+                                  'AGENT_NAME',
+                                  response.name,
+                                );
+                                await _sharedPreferences.setInt(
+                                  'AGENT_ID',
+                                  response.id,
                                 );
 
                                 // Exibir sucesso
@@ -302,11 +317,11 @@ class _LoginPageState extends State<LoginPage> {
                             onPressed: () async {
                               try {
                                 final registerDTO = AgentRegisterDTO(
-                                  name: user.text,
-                                  login: login.text,
-                                  password: pass.text,
-                                  city: city.text,
-                                  email: email.text,
+                                  name: user.text.toUpperCase().trim(),
+                                  login: login.text.toUpperCase().trim(),
+                                  password: pass.text.toUpperCase().trim(),
+                                  city: city.text.toUpperCase().trim(),
+                                  email: email.text.toUpperCase().trim(),
                                 );
 
                                 final response = await agentService.register(

@@ -4,6 +4,7 @@ import 'package:health_check/src/model/case_register_dto.dart';
 import 'package:health_check/src/model/gravities.dart';
 import 'package:health_check/src/model/sickness.dart';
 import 'package:health_check/src/service/case_service.dart';
+import 'package:health_check/src/view/home_page.dart';
 
 List<Map<String, dynamic>> GraL = gravities;
 List<Map<String, dynamic>> SicL = sickness;
@@ -247,17 +248,17 @@ class _FocusPageState extends State<FocusPage> {
                             onPressed: () async {
                               try {
                                 final newCase = CaseRegisterDTO(
-                                  disease: selSic.text,
-                                  street: selRua.text,
-                                  number: selNum.text,
-                                  complement: selCom.text,
-                                  neighborhood: selBai.text,
-                                  city: selCid.text,
-                                  state: selEst.text,
-                                  zipCode: selCep.text,
+                                  disease: selSic.text.toUpperCase().trim(),
+                                  street: selRua.text.toUpperCase().trim(),
+                                  number: selNum.text.toUpperCase().trim(),
+                                  complement: selCom.text.toUpperCase().trim(),
+                                  neighborhood: selBai.text.toUpperCase().trim(),
+                                  city: selCid.text.toUpperCase().trim(),
+                                  state: selEst.text.toUpperCase().trim(),
+                                  zipCode: selCep.text.toUpperCase().trim(),
                                   registrationDate:
                                       DateTime.now().toIso8601String(),
-                                  agentId: 1,
+                                  agentId: int.parse(userID),
                                 );
 
                                 final response = await caseService.registerCase(

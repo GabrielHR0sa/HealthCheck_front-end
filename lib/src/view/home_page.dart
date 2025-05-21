@@ -4,6 +4,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 bool _selected = false;
+String userNAME = '';
+String userID = '';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,8 +38,21 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     _readSelect();
+    _loadLoginUserInfo();
     super.initState();
   }
+
+  Future<void> _loadLoginUserInfo() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? agent_name = prefs.getString('AGENT_NAME');
+  int? agent_id = prefs.getInt('AGENT_ID'); 
+
+  setState(() {
+    userNAME = agent_name ?? 'Visitante';
+    userID = agent_id?.toString() ?? '1';
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +193,11 @@ class _HomePageState extends State<HomePage> {
                           ),
                           TextSpan(text: '\n'),
                           TextSpan(
-                            text: 'AGENTE: FULANO',
+                            text: 'AGENTE: ',
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                          TextSpan(
+                            text: userNAME,
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
                         ],
@@ -226,7 +245,10 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                  ).animate().fadeIn(curve: Curves.easeInOut, duration: 1500.ms),
+                  ).animate().fadeIn(
+                    curve: Curves.easeInOut,
+                    duration: 1500.ms,
+                  ),
                   Center(
                     child: Container(
                       height: altura * 0.12,
@@ -259,7 +281,10 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                  ).animate().fadeIn(curve: Curves.easeInOut, duration: 1500.ms),
+                  ).animate().fadeIn(
+                    curve: Curves.easeInOut,
+                    duration: 1500.ms,
+                  ),
                   Center(
                     child: Container(
                       height: altura * 0.12,
@@ -292,8 +317,11 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                  ).animate().fadeIn(curve: Curves.easeInOut, duration: 1500.ms),
-            
+                  ).animate().fadeIn(
+                    curve: Curves.easeInOut,
+                    duration: 1500.ms,
+                  ),
+
                   Center(
                     child: Container(
                       height: altura * 0.12,
@@ -326,7 +354,10 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                  ).animate().fadeIn(curve: Curves.easeInOut, duration: 1500.ms),
+                  ).animate().fadeIn(
+                    curve: Curves.easeInOut,
+                    duration: 1500.ms,
+                  ),
                 ],
               ),
             ),

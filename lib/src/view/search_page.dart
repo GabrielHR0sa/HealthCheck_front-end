@@ -19,13 +19,13 @@ class _SearchPageState extends State<SearchPage> {
   Future<void> searchCases() async {
     try {
       final searchDTO = CaseSearchRequestDTO(
-        city: cityController.text,
+        city: cityController.text.toUpperCase().trim(),
         neighborhood:
             neighborhoodController.text.isNotEmpty
-                ? neighborhoodController.text
+                ? neighborhoodController.text.toUpperCase().trim()
                 : null,
         disease:
-            diseaseController.text.isNotEmpty ? diseaseController.text : null,
+            diseaseController.text.isNotEmpty ? diseaseController.text.toUpperCase().trim() : null,
       );
 
       final response = await CaseService().searchCases(searchDTO);
