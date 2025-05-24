@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).popAndPushNamed('/account');
+                        //Navigator.of(context).popAndPushNamed('/account');
                       },
                       child: CircleAvatar(
                         radius: 50,
@@ -303,6 +303,42 @@ class _HomePageState extends State<HomePage> {
                               ),
                         ),
                         onPressed: () {
+                          Navigator.of(context).pushNamed('/map');
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Icon(Icons.map_outlined, size: 70),
+                            Text(
+                              'MAPA',
+                              style: Theme.of(context).textTheme.displayMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ).animate().fadeIn(
+                    curve: Curves.easeInOut,
+                    duration: 1500.ms,
+                  ),
+                  Center(
+                    child: Container(
+                      height: altura * 0.12,
+                      width: 500,
+                      margin: const EdgeInsets.all(20),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                            Color(0xFF63B3C3),
+                          ),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                              ),
+                        ),
+                        onPressed: () {
                           Navigator.of(context).popAndPushNamed('/advice');
                         },
                         child: Row(
@@ -364,7 +400,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      floatingActionButton: SizedBox(
+      /*floatingActionButton: SizedBox(
         width: 90,
         height: 90,
         child: Container(
@@ -396,7 +432,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
 
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,*/
     );
   }
 }

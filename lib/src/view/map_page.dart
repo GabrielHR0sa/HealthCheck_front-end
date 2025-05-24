@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:health_check/src/service/mapa_service.dart';
 
 class MapPage extends StatefulWidget {
@@ -10,11 +11,10 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  late GoogleMapController mapController;
-  final Set<Marker> _markers = {};
   final MapService mapService = MapService();
+  List<MapCase> allCases = [];
 
-  final LatLng _center = const LatLng(-21.5944, -48.8121); // Centro inicial (Itápolis?)
+  final LatLng _center = const LatLng(-21.5944, -48.8121);
 
   @override
   void initState() {
@@ -26,42 +26,82 @@ class _MapPageState extends State<MapPage> {
     try {
       final cases = await mapService.fetchCases();
       setState(() {
-        for (var c in cases) {
-          _markers.add(
-            Marker(
-              markerId: MarkerId(c.id.toString()),
-              position: LatLng(c.latitude, c.longitude),
-              infoWindow: InfoWindow(
-                title: c.disease,
-                snippet: c.city,
-              ),
-            ),
-          );
-        }
+        allCases = cases;
       });
     } catch (e) {
       print('Erro ao carregar casos: $e');
     }
   }
 
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Casos no Mapa'),
-        backgroundColor: const Color(0xFF1F5076),
-      ),
-      body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 12.0,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.center,
+              end: Alignment.centerRight,
+              colors: [
+                Color(0xFF63B3C3), // #63b3c3
+                Color(0xFF1F5076), // #1f5076
+              ],
+            ),
+          ),
+
+          child: AppBar(
+            leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).popAndPushNamed('/home');
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: Theme.of(context).colorScheme.background,
+                size: 40,
+              ),
+            ),
+            title: Center(
+              child: Text(
+                'MAPA DE CASOS',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ),
+            actions: [Container(width: 50)],
+            backgroundColor: Colors.transparent, // importante!
+            elevation: 0,
+          ),
         ),
-        markers: _markers,
+      ),
+      body: FlutterMap(
+        options: MapOptions(
+          initialCenter: _center,
+          initialZoom: 13,
+        ),
+        children: [
+          // Camada de tiles do Geoapify
+          TileLayer(
+            urlTemplate:
+                'https://maps.geoapify.com/v1/tile/dark-matter/{z}/{x}/{y}.png?apiKey=9ddf24376acc4b098bfe7c1515e311d5',
+            userAgentPackageName: 'com.example.app',
+          ),
+
+          // Camada de marcadores dos casos
+          MarkerLayer(
+            markers: allCases.map((c) {
+              return Marker(
+                point: LatLng(c.latitude, c.longitude),
+                width: 40,
+                height: 40,
+                child: Icon(
+                  Icons.location_on,
+                  color: Colors.red,
+                  size: 36,
+                ),
+              );
+            }).toList(),
+          ),
+        ],
       ),
     );
   }

@@ -1,18 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:health_check/src/dio_client.dart';
 
 class MapService {
-  final Dio dio = Dio(
-    BaseOptions(
-      baseUrl: 'http://192.168.1.13:8080/api/',
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 10),
-      headers: {'Content-Type': 'application/json'},
-    ),
-  );
+  final Dio _dio = DioClient.dio;
 
   Future<List<MapCase>> fetchCases() async {
     try {
-      final response = await dio.get('map/cases');
+      final response = await _dio.get('map/cases');
       List data = response.data;
 
       return data.map((json) => MapCase.fromJson(json)).toList();

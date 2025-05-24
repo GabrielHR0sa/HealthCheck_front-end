@@ -5,6 +5,7 @@ import 'package:health_check/src/model/gravities.dart';
 import 'package:health_check/src/model/sickness.dart';
 import 'package:health_check/src/service/case_service.dart';
 import 'package:health_check/src/view/home_page.dart';
+import 'package:health_check/src/widget/dialogs.dart';
 
 List<Map<String, dynamic>> GraL = gravities;
 List<Map<String, dynamic>> SicL = sickness;
@@ -160,6 +161,7 @@ class _FocusPageState extends State<FocusPage> {
                                 filled: true,
                                 labelText: 'Nº',
                               ),
+                              keyboardType: TextInputType.number,
                             ),
                           ),
                         ],
@@ -225,6 +227,7 @@ class _FocusPageState extends State<FocusPage> {
                           filled: true,
                           labelText: 'Cep',
                         ),
+                        keyboardType: TextInputType.number,
                       ),
                     ),
                     SizedBox(height: 20),
