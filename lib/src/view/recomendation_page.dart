@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-// Importa a lista sicknessL de onde ela estiver
 import 'package:health_check/src/model/sicknessList.dart';
 
 class RecommendationsPage extends StatelessWidget {
@@ -10,7 +8,6 @@ class RecommendationsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Procura a doença pelo codsic
     final Map<String, dynamic> selectedDisease = sicknessL.firstWhere(
       (item) => item['codsic'] == codsic,
       orElse: () => <String, dynamic>{},

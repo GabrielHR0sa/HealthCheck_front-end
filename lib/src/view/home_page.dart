@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                 size: 40,
               ),
             ),
-            backgroundColor: Colors.transparent, // importante!
+            backgroundColor: Colors.transparent,
             elevation: 0,
             actions: [
               Container(

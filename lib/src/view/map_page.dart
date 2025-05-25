@@ -72,7 +72,7 @@ class _MapPageState extends State<MapPage> {
               ),
             ),
             actions: [Container(width: 50)],
-            backgroundColor: Colors.transparent, // importante!
+            backgroundColor: Colors.transparent,
             elevation: 0,
           ),
         ),

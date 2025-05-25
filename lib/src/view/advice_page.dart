@@ -19,7 +19,7 @@ class _AdvicePageState extends State<AdvicePage> {
   @override
   void initState() {
     super.initState();
-    filteredList = SickL; // Começa com tudo
+    filteredList = SickL;
   }
 
   void _filterSearch(String query) {
@@ -71,7 +71,7 @@ class _AdvicePageState extends State<AdvicePage> {
               ),
             ),
             actions: [Container(width: 50)],
-            backgroundColor: Colors.transparent, // importante!
+            backgroundColor: Colors.transparent,
             elevation: 0,
           ),
         ),

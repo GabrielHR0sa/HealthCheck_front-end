@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -43,7 +42,7 @@ class _AlertPageState extends State<AlertPage> {
               ),
             ),
             actions: [Container(width: 50)],
-            backgroundColor: Colors.transparent, // importante!
+            backgroundColor: Colors.transparent,
             elevation: 0,
           ),
         ),

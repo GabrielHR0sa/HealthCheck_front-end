@@ -52,7 +52,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
               child: Text('EDITAR INFORMAÇÕES', style: Theme.of(context).textTheme.titleLarge,),
             ),
             actions: [Container(width: 50)],
-            backgroundColor: Colors.transparent, // importante!
+            backgroundColor: Colors.transparent,
             elevation: 0,
           ),
         ),

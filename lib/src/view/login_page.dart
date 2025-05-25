@@ -25,9 +25,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  //final service = AuthService();
-  //final serviceU = UserService();
-
   @override
   void initState() {
     setState(() {
@@ -259,12 +256,10 @@ class _LoginPageState extends State<LoginPage> {
                                     SharedPreferences _sharedPreferences =
                                         await SharedPreferences.getInstance();
 
-                                    // Faz login via API
                                     final response = await agentService.login(
                                       loginDTO,
                                     );
 
-                                    // Salva name e id do agente no SharedPreferences
                                     await _sharedPreferences.setString(
                                       'AGENT_NAME',
                                       response.name,
@@ -274,7 +269,6 @@ class _LoginPageState extends State<LoginPage> {
                                       response.id,
                                     );
 
-                                    // Exibir sucesso
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
@@ -344,7 +338,6 @@ class _LoginPageState extends State<LoginPage> {
                                       registerDTO,
                                     );
                             
-                                    // Exibir sucesso
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(

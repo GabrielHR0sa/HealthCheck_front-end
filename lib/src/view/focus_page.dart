@@ -5,7 +5,6 @@ import 'package:health_check/src/model/gravities.dart';
 import 'package:health_check/src/model/sickness.dart';
 import 'package:health_check/src/service/case_service.dart';
 import 'package:health_check/src/view/home_page.dart';
-import 'package:health_check/src/widget/dialogs.dart';
 
 List<Map<String, dynamic>> GraL = gravities;
 List<Map<String, dynamic>> SicL = sickness;
@@ -91,7 +90,7 @@ class _FocusPageState extends State<FocusPage> {
               ),
             ),
             actions: [Container(width: 50)],
-            backgroundColor: Colors.transparent, // importante!
+            backgroundColor: Colors.transparent,
             elevation: 0,
           ),
         ),
@@ -152,7 +151,7 @@ class _FocusPageState extends State<FocusPage> {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 16), // espaço entre os campos
+                          const SizedBox(width: 16),
                           Expanded(
                             flex: 3,
                             child: TextFormField(
@@ -204,7 +203,7 @@ class _FocusPageState extends State<FocusPage> {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 16), // espaço entre os campos
+                          const SizedBox(width: 16),
                           Expanded(
                             flex: 3,
                             child: TextFormField(

@@ -38,7 +38,7 @@ class _GripePageState extends State<GripePage> {
               child: Text('GRIPE', style: TextStyle(color: Colors.white)),
             ),
             actions: [Container(width: 50)],
-            backgroundColor: Colors.transparent, // importante!
+            backgroundColor: Colors.transparent,
             elevation: 0,
           ),
         ),

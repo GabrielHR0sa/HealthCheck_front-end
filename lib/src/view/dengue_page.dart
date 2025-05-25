@@ -38,7 +38,7 @@ class _DenguePageState extends State<DenguePage> {
               child: Text('DENGUE', style: TextStyle(color: Colors.white)),
             ),
             actions: [Container(width: 50)],
-            backgroundColor: Colors.transparent, // importante!
+            backgroundColor: Colors.transparent,
             elevation: 0,
           ),
         ),

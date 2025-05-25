@@ -38,7 +38,7 @@ class _CovidPageState extends State<CovidPage> {
               child: Text('COVID', style: TextStyle(color: Colors.white)),
             ),
             actions: [Container(width: 50)],
-            backgroundColor: Colors.transparent, // importante!
+            backgroundColor: Colors.transparent,
             elevation: 0,
           ),
         ),
