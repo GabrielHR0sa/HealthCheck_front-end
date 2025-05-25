@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:health_check/src/dio_client.dart';
 import 'package:health_check/src/view/advice_page.dart';
 import 'package:health_check/src/view/alert_page.dart';
+import 'package:health_check/src/view/config_page.dart';
 import 'package:health_check/src/view/covid_page.dart';
 import 'package:health_check/src/view/dengue_page.dart';
 import 'package:health_check/src/view/focus_page.dart';
@@ -20,7 +22,8 @@ Future<void> main() async {
   SharedPreferences _sharedPreferences = await SharedPreferences.getInstance();
 
   final themeController = ThemeController(_sharedPreferences);
-
+  String ip = _sharedPreferences.getString('IP') ?? '192.168.1.13:8080';
+  DioClient.init(ip);
   runApp(
     MyApp(themeController: themeController),
   );
@@ -61,6 +64,7 @@ class MyApp extends StatelessWidget {
             ('/gripe') : (context) => const GripePage(),
             ('/search') : (context) => const SearchPage(),
             ('/map') : (context) => const MapPage(),
+            ('/config') : (context) => const ConfigPage(),
           },
         ),
       );

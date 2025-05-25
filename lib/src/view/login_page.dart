@@ -233,132 +233,160 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     isExpanded
-                        ? SizedBox(
-                          width: largura * 0.4,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromARGB(
-                                255,
-                                56,
-                                113,
-                                193,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
+                        ? Row(
+                          children: [
+                            SizedBox(
+                              width: largura * 0.4,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color.fromARGB(
+                                    255,
+                                    56,
+                                    113,
+                                    193,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  try {
+                                    final loginDTO = AgentLoginDTO(
+                                      email: login.text.toUpperCase().trim(),
+                                      password: pass.text.toUpperCase().trim(),
+                                    );
+
+                                    SharedPreferences _sharedPreferences =
+                                        await SharedPreferences.getInstance();
+
+                                    // Faz login via API
+                                    final response = await agentService.login(
+                                      loginDTO,
+                                    );
+
+                                    // Salva name e id do agente no SharedPreferences
+                                    await _sharedPreferences.setString(
+                                      'AGENT_NAME',
+                                      response.name,
+                                    );
+                                    await _sharedPreferences.setInt(
+                                      'AGENT_ID',
+                                      response.id,
+                                    );
+
+                                    // Exibir sucesso
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Bem-vindo, ${response.name}!',
+                                        ),
+                                        backgroundColor: Colors.green,
+                                      ),
+                                    );
+
+                                    Navigator.popAndPushNamed(context, '/home');
+                                  } catch (e) {
+                                    // Exibir erro
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(e.toString()),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
+                                  }
+                                },
+
+                                child: const Text(
+                                  'Entrar',
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                             ),
-                            onPressed: () async {
-                              try {
-                                final loginDTO = AgentLoginDTO(
-                                  email: login.text.toUpperCase().trim(),
-                                  password: pass.text.toUpperCase().trim(),
-                                );
-
-                                SharedPreferences _sharedPreferences =
-                                    await SharedPreferences.getInstance();
-
-                                // Faz login via API
-                                final response = await agentService.login(
-                                  loginDTO,
-                                );
-
-                                // Salva name e id do agente no SharedPreferences
-                                await _sharedPreferences.setString(
-                                  'AGENT_NAME',
-                                  response.name,
-                                );
-                                await _sharedPreferences.setInt(
-                                  'AGENT_ID',
-                                  response.id,
-                                );
-
-                                // Exibir sucesso
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Bem-vindo, ${response.name}!',
-                                    ),
-                                    backgroundColor: Colors.green,
-                                  ),
-                                );
-
-                                Navigator.popAndPushNamed(context, '/home');
-                              } catch (e) {
-                                // Exibir erro
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(e.toString()),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                              }
-                            },
-
-                            child: const Text(
-                              'Entrar',
-                              style: TextStyle(color: Colors.white),
+                            IconButton(
+                              onPressed: () {
+                                Navigator.of(context).pushNamed('/config');
+                              },
+                              icon: Icon(
+                                Icons.settings,
+                                size: 25,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
+                          ],
                         )
-                        : SizedBox(
-                          width: largura * 0.4,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromARGB(
-                                255,
-                                56,
-                                113,
-                                193,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
+                        : Row(
+                          children: [
+                            SizedBox(
+                              width: largura * 0.4,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color.fromARGB(
+                                    255,
+                                    56,
+                                    113,
+                                    193,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  try {
+                                    final registerDTO = AgentRegisterDTO(
+                                      name: user.text.toUpperCase().trim(),
+                                      login: login.text.toUpperCase().trim(),
+                                      password: pass.text.toUpperCase().trim(),
+                                      city: city.text.toUpperCase().trim(),
+                                      email: email.text.toUpperCase().trim(),
+                                    );
+                            
+                                    final response = await agentService.register(
+                                      registerDTO,
+                                    );
+                            
+                                    // Exibir sucesso
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Agente ${response.name} cadastrado com sucesso!',
+                                        ),
+                                        backgroundColor: Colors.green,
+                                      ),
+                                    );
+                            
+                                    user.clear();
+                                    login.clear();
+                                    pass.clear();
+                                    city.clear();
+                                    email.clear();
+                                  } catch (e) {
+                                    // Exibir erro
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(e.toString()),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
+                                  }
+                                },
+                            
+                                child: const Text(
+                                  'Cadastrar',
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                             ),
-                            onPressed: () async {
-                              try {
-                                final registerDTO = AgentRegisterDTO(
-                                  name: user.text.toUpperCase().trim(),
-                                  login: login.text.toUpperCase().trim(),
-                                  password: pass.text.toUpperCase().trim(),
-                                  city: city.text.toUpperCase().trim(),
-                                  email: email.text.toUpperCase().trim(),
-                                );
-
-                                final response = await agentService.register(
-                                  registerDTO,
-                                );
-
-                                // Exibir sucesso
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Agente ${response.name} cadastrado com sucesso!',
-                                    ),
-                                    backgroundColor: Colors.green,
-                                  ),
-                                );
-
-                                user.clear();
-                                login.clear();
-                                pass.clear();
-                                city.clear();
-                                email.clear();
-                              } catch (e) {
-                                // Exibir erro
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(e.toString()),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                              }
-                            },
-
-                            child: const Text(
-                              'Cadastrar',
-                              style: TextStyle(color: Colors.white),
+                            IconButton(
+                              onPressed: () {
+                                Navigator.of(context).pushNamed('/config');
+                              },
+                              icon: Icon(
+                                Icons.settings,
+                                size: 25,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                   ],
                 ),

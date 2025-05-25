@@ -3,6 +3,24 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+_VerificaIPs() async {
+  SharedPreferences _sharedPreferences = await SharedPreferences.getInstance();
+
+  String IpFixo = '192.168.1.13:8080';
+  String ip = '';
+
+  try {
+    ip = _sharedPreferences.getString('IP')!;
+  } catch (e) {
+    ip = '';
+  }
+
+  if (ip == '') {
+    await _sharedPreferences.setString('IP', IpFixo);
+  }
+}
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -14,6 +32,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
+    _VerificaIPs();
     Timer(const Duration(seconds: 3), () {
        Navigator.of(context).popAndPushNamed('/login');
     });
