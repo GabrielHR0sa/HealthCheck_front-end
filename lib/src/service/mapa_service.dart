@@ -32,12 +32,13 @@ class MapCase {
   });
 
   factory MapCase.fromJson(Map<String, dynamic> json) {
-    return MapCase(
-      id: json['id'],
-      disease: json['disease'],
-      city: json['city'],
-      latitude: json['latitude'],
-      longitude: json['longitude'],
-    );
-  }
+  return MapCase(
+    id: json['id'],
+    disease: json['disease'],
+    city: json['city'],
+    latitude: double.parse(json['latitude'].toString()),
+    longitude: double.parse(json['longitude'].toString()),
+  );
+}
+
 }

@@ -25,6 +25,10 @@ class _MapPageState extends State<MapPage> {
   Future<void> loadCases() async {
     try {
       final cases = await mapService.fetchCases();
+      /*print('Casos recebidos: ${cases.length}');
+      for (var c in cases) {
+        print('ID: ${c.id}, lat: ${c.latitude}, lng: ${c.longitude}');
+      }*/
       setState(() {
         allCases = cases;
       });
@@ -74,10 +78,7 @@ class _MapPageState extends State<MapPage> {
         ),
       ),
       body: FlutterMap(
-        options: MapOptions(
-          initialCenter: _center,
-          initialZoom: 13,
-        ),
+        options: MapOptions(initialCenter: _center, initialZoom: 13),
         children: [
           // Camada de tiles do Geoapify
           TileLayer(
@@ -88,18 +89,15 @@ class _MapPageState extends State<MapPage> {
 
           // Camada de marcadores dos casos
           MarkerLayer(
-            markers: allCases.map((c) {
-              return Marker(
-                point: LatLng(c.latitude, c.longitude),
-                width: 40,
-                height: 40,
-                child: Icon(
-                  Icons.location_on,
-                  color: Colors.red,
-                  size: 36,
-                ),
-              );
-            }).toList(),
+            markers:
+                allCases.map((c) {
+                  return Marker(
+                    point: LatLng(c.latitude, c.longitude),
+                    width: 40,
+                    height: 40,
+                    child: Icon(Icons.location_on, color: Colors.red, size: 36),
+                  );
+                }).toList(),
           ),
         ],
       ),
