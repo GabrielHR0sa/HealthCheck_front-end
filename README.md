@@ -64,4 +64,8 @@ dependencies:
 
 ### Aplicativo HealthCheck
 
-<img src="https://github.com/GabrielHR0sa/HealthCheck_front-end/blob/main/mockups/telas.png?raw=true">
+### LIGHT THEME
+<img src="https://github.com/GabrielHR0sa/HealthCheck_front-end/blob/main/mockups/LIGHT_THEME.png?raw=true">
+
+### DARK THEME
+<img src="https://github.com/GabrielHR0sa/HealthCheck_front-end/blob/main/mockups/DARK_THEME.png?raw=true">
