@@ -1,7 +1,3 @@
-Perfeito! Vou atualizar o seu README, acrescentando as libs e tecnologias que você usou no projeto (incluindo a parte de mapa, Dio, Geoapify, etc) e mantendo o estilo do texto que você já usou. Segue a versão revisada e ampliada:
-
----
-
 # 📱 HealthCheck App
 
 ## 📖 Visão Geral
@@ -69,7 +65,3 @@ dependencies:
 ### Aplicativo HealthCheck
 
 <img src="https://github.com/GabrielHR0sa/HealthCheck_front-end/blob/main/mockups/telas.png?raw=true">
-
----
-
-Se quiser, posso montar também a versão em inglês ou incluir um diagrama resumido de arquitetura/fluxo de dados entre app → API → banco. Quer? 🚀
